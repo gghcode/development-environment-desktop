@@ -1,0 +1,11 @@
+- name: gghcode env init
+  hosts: local
+  gather_facts: no
+  roles:
+    - role: dev 
+      vars:
+        git_editor: vim
+        git_author_email: gyuhwan.a.kim@gmail.com
+        git_author_name: Gyuhwan Kim
+
+    - role: browsers

@@ -1,0 +1,5 @@
+---
+- name: Install Opera browser
+  homebrew_cask:
+    name: opera
+    state: present

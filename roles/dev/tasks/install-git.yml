@@ -1,0 +1,10 @@
+---
+- name: Install Git
+  homebrew:
+    name: git
+    state: present
+
+- name: Copy template of Git
+  template:
+    src: .gitconfig.j2
+    dest: ~/.gitconfig
