@@ -1,0 +1,3 @@
+---
+- include_tasks: install-git.yml
+- include_tasks: install-asdf.yml
