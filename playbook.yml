@@ -3,6 +3,12 @@
   gather_facts: no
   roles:
     - role: shell
+      vars:
+        oh_my_zsh_plugins:
+          - git
+          - docker
+          - zsh-autosuggestions
+          - zsh-syntax-highlighting
 
     - role: ide
     - role: sdk

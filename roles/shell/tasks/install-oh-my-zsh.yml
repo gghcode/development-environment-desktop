@@ -1,0 +1,33 @@
+---
+- name: Clone oh-my-zsh
+  command: 'git clone -c core.autocrlf=input --depth=1 https://github.com/robbyrussell/oh-my-zsh.git .oh-my-zsh'
+  args:
+    chdir: '~/'
+    creates: '~/.oh-my-zsh'
+
+- name: Write .zshrc
+  template:
+    src: zshrc.j2
+    dest: '~/.zshrc'
+    mode: 'u=rw,go=r'
+
+- name: Grant zsh directory
+  file:
+    path: "/usr/local/share/zsh"
+    mode: g-w,o-w
+    recurse: yes
+
+- name: Clone pure theme
+  git:
+    repo: https://github.com/sindresorhus/pure.git
+    dest: ~/.oh-my-zsh/pure
+
+- name: Clone zsh-autosuggestions plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Clone zsh-syntax-highlighting plugin
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
