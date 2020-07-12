@@ -1,1 +1,2 @@
 - include_tasks: install-vscode.yml
+- include_tasks: install-intellij.yml

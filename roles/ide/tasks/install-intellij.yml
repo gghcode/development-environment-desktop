@@ -1,0 +1,5 @@
+---
+- name: Install IntelliJ
+  homebrew_cask:
+    name: intellij-idea
+    state: present
