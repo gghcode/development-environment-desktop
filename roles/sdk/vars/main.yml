@@ -1,0 +1,3 @@
+---
+asdf_home: "{{ lookup('env','HOME') }}"
+asdf_dir: "{{ asdf_home }}/.asdf"

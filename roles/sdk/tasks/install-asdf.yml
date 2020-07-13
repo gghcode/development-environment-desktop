@@ -3,3 +3,39 @@
   homebrew:
     name: asdf
     state: present
+
+- name: Install asdf plugins
+  shell: >-
+    . $(brew --prefix asdf)/asdf.sh &&
+    asdf plugin-add {{ item.name }} {{ item.repository | default() }}
+  args:
+    executable: "{{ asdf_install_shell | default(omit) }}"
+    creates: "{{ asdf_dir }}/plugins/{{ item.name }}"
+    chdir: "{{ asdf_home }}"
+  with_items: "{{ asdf_plugins }}"
+  ignore_errors: True
+
+- name: Set path to .zshrc
+  set_fact:
+    asdf_zshrc_path: "{{ asdf_home }}/.zshrc"
+  when: asdf_zshrc_path is undefined
+
+- name: Check whether .zshrc exists
+  stat:
+    path: "{{ asdf_zshrc_path }}"
+  register: asdf_zshrc_st
+
+- name: Resolve .zshrc symlink
+  set_fact:
+    asdf_zshrc_path: "{{ asdf_zshrc_st.stat.lnk_source }}"
+  when: asdf_zshrc_st.stat.exists and asdf_zshrc_st.stat.islnk
+
+- name: Load asdf in .zshrc
+  blockinfile:
+    dest: "{{ asdf_zshrc_path }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: asdf"
+    block: |
+      if [ -e "$(brew --prefix asdf)/asdf.sh" ]; then
+        . $(brew --prefix asdf)/asdf.sh
+      fi
+  when: asdf_zshrc_st.stat.exists
