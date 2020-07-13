@@ -6,6 +6,7 @@
       vars:
         oh_my_zsh_plugins:
           - git
+          - asdf
           - docker
           - zsh-autosuggestions
           - zsh-syntax-highlighting
@@ -16,5 +17,10 @@
         git_editor: vim
         git_author_email: gyuhwan.a.kim@gmail.com
         git_author_name: Gyuhwan Kim
+        asdf_plugins:
+          - name: golang
+          - name: python
+          - name: terraform
 
     - role: browsers
+    - role: productivity

@@ -1,0 +1,5 @@
+---
+- name: Install Enpass
+  homebrew_cask:
+    name: enpass
+    state: present
